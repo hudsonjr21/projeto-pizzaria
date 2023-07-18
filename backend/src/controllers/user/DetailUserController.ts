@@ -15,4 +15,4 @@ class DetailuserController{
   }
 }
 
-export { DetailuserController  }
+export { DetailuserController }

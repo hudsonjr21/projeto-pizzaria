@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 
 import { AuthContext } from '../../contexts/AuthContext'
+import { Ionicons } from '@expo/vector-icons'
 
 export default function SignIn(){
   
@@ -17,6 +18,7 @@ export default function SignIn(){
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [hidePass, setHidePass] = useState(true)
 
   async function handleLogin(){
 
@@ -45,14 +47,27 @@ export default function SignIn(){
           onChangeText={setEmail}
         />
 
-        <TextInput
-          placeholder="Sua senha"      
-          style={styles.input}   
-          placeholderTextColor="#F0F0F0"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={setPassword}          
-        />     
+      <View style={styles.passwordInputContainer}>
+          <TextInput
+            placeholder="Sua senha"
+            style={styles.passwordInput}
+            placeholderTextColor="#F0F0F0"
+            secureTextEntry={hidePass}
+            value={password}
+            onChangeText={setPassword}
+          />
+
+          <TouchableOpacity
+            style={styles.inputIcon}
+            onPress={() => setHidePass(!hidePass)}
+          >
+            {hidePass ? (
+              <Ionicons name="eye" color="#FFF" size={25} />
+            ) : (
+              <Ionicons name="eye-off" color="#FFF" size={25} />
+            )}
+          </TouchableOpacity>
+      </View>     
 
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           { loadingAuth ? (
@@ -78,14 +93,14 @@ const styles = StyleSheet.create({
     marginBottom: 18
   },
   inputContainer:{
-    width: '95%',
+    width: '85%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 32,
     paddingHorizontal: 14,
   },
   input:{
-    width: '95%',
+    width: '85%',
     height: 40,
     backgroundColor: '#101026',
     marginBottom: 12,
@@ -93,8 +108,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     color: '#FFF'
   },
+  passwordInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '85%',
+    marginBottom: 12,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+    backgroundColor: '#101026', 
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    color: '#FFF',
+  },
+  inputIcon:{
+    width: '15%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   button:{
-    width: '95%',
+    width: '85%',
     height: 40,
     backgroundColor: '#3fffa3',
     borderRadius: 4,
@@ -106,4 +141,4 @@ const styles = StyleSheet.create({
    fontWeight: 'bold',
    color: '#101026'
   }
-})
+});

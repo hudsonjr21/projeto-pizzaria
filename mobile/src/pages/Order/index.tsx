@@ -119,7 +119,7 @@ export default function Order(){
     setProductSelected(item);
   }
 
-  // adcionando um produto nessa mesa
+  // adicionando um produto nessa mesa
   async function handleAdd(){
     const response = await api.post('/order/add', {
       order_id: route.params?.order_id,
